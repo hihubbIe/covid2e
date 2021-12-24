@@ -1,20 +1,23 @@
 
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import util.Hash;
+import util.DBAccess;
 /**
  * Servlet implementation class Login
  */
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String LOGIN="grosconnard";
-	private static String MDP="oui";
+	private String LOGIN="";
+	private String MDP="";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -30,20 +33,29 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		 String nom = request.getParameter("name");
-	     String mdp = request.getParameter("password");
+	     String mdp = Hash.sha256(request.getParameter("password"));
 	     
 	     if (nom != null && mdp != null) {
-		     if (nom.equals(LOGIN) && mdp.equals(MDP)) {
-		         HttpSession session = request.getSession();
-		         session.setAttribute("login", nom);
-		         session.setAttribute("mdp", mdp);
-		         response.sendRedirect("indexConnecte.jsp");
-		     }else
-		     {
-		    	 response.sendRedirect("index.jsp?log=false");
-		     }
+		     try {
+				DBAccess.getInstance();
+				if (DBAccess.checkAccount(nom, mdp)) {
+				     HttpSession session = request.getSession();
+				     session.setAttribute("login", nom);
+				     session.setAttribute("mdp", mdp);
+				     response.sendRedirect("indexConnecte.jsp");
+				 }else
+				 {
+					 response.sendRedirect("login.jsp?log=false");
+				 }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	     }else {
-	    	 response.sendRedirect("index.jsp?log=false");
+	    	 response.sendRedirect("login.jsp?log=false");
 	     }
 	}
 
