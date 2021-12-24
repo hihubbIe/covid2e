@@ -6,33 +6,30 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
-public final class DBAccess {
+import util.SingletonConnection;
+import metier.User;
+
+public final class UserDAO {
 	
-	  private static DBAccess instance = null;
+	  private static UserDAO instance = null;
 	  private static Connection con = null;
 	  private static Statement stmt = null;
 	  
-	  private static String DB_USER = "root";
-	  private static String DB_PASS = "";
-	  private static String DB_ADRESS = "jdbc:mysql://localhost:3306/covid";
-	  
 	  static {
-	    instance = new DBAccess();
+	    instance = new UserDAO();
 	  }
 	  
-	  public final static DBAccess getInstance() { return instance; }
+	  public final static UserDAO getInstance() { return instance; }
 	  
-	  private DBAccess() {
+	  private UserDAO() {
 		  try {
-	           Class.forName("com.mysql.jdbc.Driver");  
-	           con = DriverManager.getConnection(DB_ADRESS,DB_USER,DB_PASS);
+	           con = SingletonConnection.getConnection();
 	           stmt = con.createStatement();
 	        } catch (SQLException e) {
 	        	System.out.println(e);
-	        } catch (ClassNotFoundException e) {
-	        	System.out.println(e);
-			}
+	        }
 	  }
 	  
 	  public static boolean checkAccount(String login, String password) throws SQLException {
@@ -55,6 +52,26 @@ public final class DBAccess {
 		  }
 		  return false;
 	  }
+	  
+	  public static ArrayList<User> getAllUsers() throws SQLException {
+		  ResultSet rs = null;
+	      String requete = "SELECT * FROM user;";
+	      ArrayList<User> listUser = new ArrayList<User>();
+	      try {	  
+	    	  rs = stmt.executeQuery(requete);
+			
+	    	  while (rs.next()) {
+	    		  listUser.add(new User(rs.getString("name"),rs.getString("firstName"),"Admin"));
+	    	  }
+			
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+	      return listUser;   
+	  }
+	  
+	  
 		
 	
 }

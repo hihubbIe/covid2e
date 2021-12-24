@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import util.Hash;
-import util.DBAccess;
+import util.UserDAO;
 /**
  * Servlet implementation class Login
  */
@@ -37,8 +37,8 @@ public class Login extends HttpServlet {
 	     
 	     if (nom != null && mdp != null) {
 		     try {
-				DBAccess.getInstance();
-				if (DBAccess.checkAccount(nom, mdp)) {
+				UserDAO.getInstance();
+				if (UserDAO.checkAccount(nom, mdp)) {
 				     HttpSession session = request.getSession();
 				     session.setAttribute("login", nom);
 				     session.setAttribute("mdp", mdp);
