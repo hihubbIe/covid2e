@@ -11,7 +11,7 @@
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
 	
-<link rel="stylesheet" href="css/listusers.css" />
+<link rel="stylesheet" href="css/accueil.css" />
 
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -20,11 +20,12 @@
 </head>
 
 <%@ page import="metier.User,util.UserDAO,java.util.ArrayList" %>
-<body>
+<%@ include file="header_log.jsp" %>
+<div class="main-div2">
 	<h1>Liste des utilisateurs</h1>
 	
 
-	<div class="container">
+	<div class="container css-container">
 		<div class="main-body">
 
 
@@ -47,6 +48,7 @@
 				out.println("<div class='card-footer'>");
 				out.println("<button class='btn btn-light btn-sm bg-white has-icon btn-block' type='button'> <i class='material-icons'>add</i>Follow </button>");
 				out.println("<button class='btn btn-light btn-sm bg-white has-icon ml-2' type='button'>Truc</button>");
+				out.println("</div></div></div></div>");
 			}
 			%>
 				
@@ -54,5 +56,5 @@
 		</div>
 	</div>
 
-</body>
+</div>
 </html>

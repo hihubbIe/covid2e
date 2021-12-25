@@ -1,0 +1,9 @@
+@charset "ISO-8859-1";
+
+.nav_bar_light{
+	color:white !important;
+}
+
+.nav_header{
+	z-index:999;
+}

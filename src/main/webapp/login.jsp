@@ -11,8 +11,9 @@
 <meta charset="ISO-8859-1">
 <title>Login</title>
 </head>
-<body>
 
+<%@include file="header_nolog.jsp" %>
+<body>
 <div class="sidenav">
          <div class="login-main-text">
             <h2>Application COVID</h2>
