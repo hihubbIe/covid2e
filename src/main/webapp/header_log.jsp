@@ -20,6 +20,16 @@
         <a class="nav-link nav_bar_light" href="index.jsp">Index <span class="sr-only">(current)</span></a>
       </li>
     </ul>
+    
+     <ul class="navbar-nav mr-0">
+  	  <li class="nav-item">
+        <a class="nav-link nav_bar_light" href="Deconnecter">Se deconnecter</a>
+      </li>
+      
+       <li class="nav-item">
+        	<div class="nav-link nav_bar_light">Bienvenue <% out.println(session.getAttribute("login")); %> ! </div>
+      </li>
+    </ul>
   </div>
 </nav>
 

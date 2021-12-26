@@ -1,6 +1,17 @@
 <%@page import="metier.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	
+
+<% if (session.getAttribute("login")==null){ 
+
+	response.sendRedirect("login.jsp");
+	
+}
+
+
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +54,7 @@
 				
 				out.println("<h5 class='card-title'>"+listUsers.get(i).getPrenom()+" "+listUsers.get(i).getName()+"</h5>");
 				out.println("<p class='text-secondary mb-1'>Full Stack Developer</p>");
-				out.println("<p class='text-muted font-size-sm'>"+listUsers.get(i).getRole()+"</p>");
+				out.println("<p class='font-weight-bold font-size-sm'>"+listUsers.get(i).getRole()+"</p>");
 				
 				out.println("<div class='card-footer'>");
 				out.println("<button class='btn btn-light btn-sm bg-white has-icon btn-block' type='button'> <i class='material-icons'>add</i>Follow </button>");

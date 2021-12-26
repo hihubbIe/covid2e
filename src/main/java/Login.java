@@ -34,6 +34,7 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 		 String nom = request.getParameter("name");
 	     String mdp = Hash.sha256(request.getParameter("password"));
+	     String role = request.getParameter("role");
 	     
 	     if (nom != null && mdp != null) {
 		     try {
@@ -42,6 +43,7 @@ public class Login extends HttpServlet {
 				     HttpSession session = request.getSession();
 				     session.setAttribute("login", nom);
 				     session.setAttribute("mdp", mdp);
+				     session.setAttribute("role", role);
 				     response.sendRedirect("indexConnecte.jsp");
 				 }else
 				 {

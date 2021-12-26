@@ -28,7 +28,7 @@
 </head>
 
 
-<div class="main-div2">
+<div class="main-div">
 
     <main role="main" class="container">
       <div class="starter-template">

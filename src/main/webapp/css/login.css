@@ -61,6 +61,7 @@ body {
     .login-form{
         margin-top: 80%;
         border: solid gray;
+        border-radius: 30px;
         padding:1em;
         
     }

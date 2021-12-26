@@ -25,7 +25,7 @@
         <a class="nav-link nav_bar_light" href="login.jsp">Se connecter</a>
       </li>
        <li class="nav-item">
-        <a class="nav-link nav_bar_light" href="index.jsp">S'inscrire</a>
+        <a class="nav-link nav_bar_light" href="inscription.jsp">S'inscrire</a>
       </li>
       
     </ul>
