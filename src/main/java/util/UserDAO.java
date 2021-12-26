@@ -96,6 +96,28 @@ public final class UserDAO {
 	      return listUser;   
 	  }
 	  
+	  public static ArrayList<User> getAllUsersByName(String name) throws SQLException {
+		  ResultSet rs = null;
+	      String requete = "SELECT user.name as name,firstName,role,role.name as role_name "
+	      		+ "FROM user,role WHERE role.id=user.role "
+	      		+ "AND (concat(user.name , ' ' , firstName) LIKE '%"+name+"%'\r\n"
+	      		+ "OR  firstName LIKE '%"+name+"%' \r\n"
+	      		+ "OR  user.name LIKE '%"+name+"%');";
+	      ArrayList<User> listUser = new ArrayList<User>();
+	      try {	  
+	    	  rs = stmt.executeQuery(requete);
+			
+	    	  while (rs.next()) {
+	    		  listUser.add(new User(rs.getString("name"),rs.getString("firstName"),rs.getString("role_name")));
+	    	  }
+			
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+	      return listUser;   
+	  }
+	  
 	  public static boolean insertUser(int id, User user,String mdp) {
 		  Date date = user.getAnniversaire();  
 		  DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  

@@ -38,13 +38,30 @@
 
 	<div class="container css-container">
 		<div class="main-body">
+		
+		<form action="RechercheUser" method="post" class="">
+		
+		<div class="input-group" style="margin-bottom:1em;">
+		  <div class="form-outline">
+		    <input type="search" id="form1" class="form-control" placeholder="Nom prenom" name="filtre_user_1" />
+		  </div>
+		  <button type="submit" class="btn btn-primary" style="width:10%;margin-left:1em;">
+		    <i class="fas fa-search">Rechercher</i>
+		  </button>
+		    <button formaction="listUsers.jsp" type="submit" class="btn btn-warning" style="width:10%;margin-left:1em;">
+		    <i class="fas fa-search">Clear</i>
+		  </button>
+		</div>
+		
+		</form>
 
 
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
 			<%  
 			ArrayList<User> listUsers = new ArrayList<User>();
 			UserDAO.getInstance();
-			listUsers = UserDAO.getAllUsers();
+			if(request.getParameter("filtre")==null) listUsers = UserDAO.getAllUsers();
+			else listUsers = UserDAO.getAllUsersByName(request.getParameter("filtre"));
 			for (int i=0;i<listUsers.size();i++){
 				out.println("<div class='col mb-3'>");
 				out.println("<div class='card'>");

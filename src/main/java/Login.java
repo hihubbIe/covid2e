@@ -44,7 +44,7 @@ public class Login extends HttpServlet {
 				     session.setAttribute("login", nom);
 				     session.setAttribute("mdp", mdp);
 				     session.setAttribute("role", role);
-				     response.sendRedirect("indexConnecte.jsp");
+				     response.sendRedirect("listUsers.jsp");
 				 }else
 				 {
 					 response.sendRedirect("login.jsp?log=false");
