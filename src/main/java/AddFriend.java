@@ -58,7 +58,7 @@ public class AddFriend extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		response.sendRedirect("friendList.jsp");
+		response.sendRedirect("listUsers.jsp");
 		
 	}
 

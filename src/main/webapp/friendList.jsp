@@ -64,9 +64,10 @@
 				else listUsers = UserDAO.getAllUsersByName(request.getParameter("filtre"));
 				
 				User me = UserDAO.getUserByPseudo(session.getAttribute("login").toString());
-				
+				int count_friend=0;
 				for (int i=0;i<listUsers.size();i++){
 					if (UserDAO.isFriend(me, listUsers.get(i))){
+						count_friend++;
 						out.println("<div class='col mb-3'>");
 						out.println("<div class='card'>");
 						out.println("<img src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ8NDQ0NFREWFhURFRUYHSggGBolGxUVITEhMSk3Ljo6Fx8zOD84NygtOjcBCgoKDQ0NDw0NDisZFRkrKy03LS0rKy03LS0tKysrNzctLTc3Nys3Ny0tLS03LTctNy03NzctKy0tKy03NzctLf/AABEIAMIBAwMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQID/8QAFhABAQEAAAAAAAAAAAAAAAAAABEB/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAEGBf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOkWCtK4aRYpASCqCQigIqgJCKoiEUFQUESCgJCLBFQWAMjSAiNAMkUBlI0AxBpBWVAGsUxVQFIKAoiCgAoCKKCCgIKIIKAgoCCgIjSAgqAgqAgqAiRpBWRpAaxTFVAUBFVABRAFBEUUEFAQUBBQEFBUFAZFEERpARGkBEUBEUVUBQVRVQFAQiqggoACiIoACgqCgiCgIKIqIoCCoCCgMigMigMioqoKA0piiIoACgAKCCggCoAQgAoCCgqAAgoCI0gIjSAgqAiKAiKCsqKDSpiqgKAAoIoIAKIigAKAgoCCgqCgIACCoCCoCCoCCoCIoKyoA3imKqIoIAoACggoCLmAIKAAAAAoigIACCgIigIioCCoCI0gMigreKKqAKggoIAoIoCgKCKAgAKAAIoCAAgoCIoCIqAgqAiNIKiKA3iiiAAAoIAoIoCgKCCgAAAAIKIIACCooIqIIKiiCoCIoKgAOgKIAAKAAKIAIoCggoAACCgIKAgAIKgCKgIKgIjSKIigqAA6BiiAAAoACoIoAAoIKAgoCCgIKgCKAgAIKgIKgqI0gIigIADeKCooCACgAAAoAAAAAAAACKAgqAIqAAAiKCoioCAAgKDagIACKAKAAoAgAAKAIoCAAACggICAoIAqagAigMgCgAP/2Q=='"+
@@ -84,6 +85,12 @@
 						out.println("</div></div></div></div>");
 					}
 				}
+				
+				if (count_friend==0){
+					out.println("<h2>Vous n'avez pas d'amis ! :(</h2>");
+				}
+				
+				
 			%>
 				
 			</div>

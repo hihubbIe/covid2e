@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
+<%@ page import="metier.User,util.UserDAO,java.util.ArrayList,metier.Notification,util.NotificationDAO" %>
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -25,6 +26,16 @@
       <li class="nav-item active">
         <a class="nav-link nav_bar_light" href="friendList.jsp">Mes amis <span class="sr-only">(current)</span></a>
       </li>
+       <li class="nav-item active">
+        <a class="nav-link nav_bar_light" href="notification.jsp"><img style="width:1em;" alt="notification" src="https://www.pinclipart.com/picdir/big/185-1850576_png-file-white-bell-notification-icon-transparent-clipart.png">
+        <% NotificationDAO.getInstance(); 
+    	ArrayList<Notification> listNotif = new ArrayList<Notification>();
+        listNotif = NotificationDAO.getAllNotificationUser(UserDAO.getIDbyPseudo(session.getAttribute("login").toString()));
+        if (listNotif.size()>0)
+        out.println("<span class='badge'>"+listNotif.size()+"</span>");
+        %></a>
+      </li>
+      
     </ul>
     
      <ul class="navbar-nav mr-0">

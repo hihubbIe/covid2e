@@ -137,6 +137,29 @@ public final class UserDAO {
 	      return user;  
 	  }
 	  
+	  public static User getUserById(String id) throws SQLException {
+		  ResultSet rs = null;
+	      String requete = "SELECT user.id,user.name as name,birthday,login,firstName,role,role.name as role_name "
+	      		+ "FROM user,role WHERE role.id=user.role AND user.id='"+id+"';";
+	      User user = null;
+	      try {	  
+	    	  rs = stmt.executeQuery(requete);
+			
+	    	  while (rs.next()) {
+	    		  User user_test = new User(rs.getString("name"),rs.getString("firstName"),rs.getString("role_name"));
+	    		  user_test.setPseudo(rs.getString("login"));
+	    		  Date date1=new SimpleDateFormat("yyyy-mm-dd").parse(rs.getString("birthday")); 
+	    		  user_test.setAnniversaire(date1);
+	    		  user=user_test;
+	    	  }
+			
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+	      return user;  
+	  }
+	  
 	  
 	  public static ArrayList<User> getAllUsersByName(String name) throws SQLException {
 		  ResultSet rs = null;
