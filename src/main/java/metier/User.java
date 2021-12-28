@@ -6,13 +6,13 @@ public class User {
 	
 	private String pseudo="";
 	private String name;
-	private String prenom;
+	private String firstName;
 	private String role;
 	private Date anniversaire=null;
 
 	public User(String name, String prenom, String role) {
 		this.name=name;
-		this.prenom=prenom;
+		this.firstName=prenom;
 		this.role=role;
 	}
 	
@@ -38,11 +38,11 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getPrenom() {
-		return prenom;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+	public void setFirstName(String prenom) {
+		this.firstName = prenom;
 	}
 	public String getRole() {
 		return role;

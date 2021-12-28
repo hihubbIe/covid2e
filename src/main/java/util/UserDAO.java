@@ -56,6 +56,22 @@ public final class UserDAO {
 		  return false;
 	  }
 	  
+	  public static String checkRole(String login, String password) throws SQLException {
+		  ResultSet rs = null;
+	      String requete = "SELECT * FROM user WHERE login = '"+login+"' AND password='"+password+"';";
+	      String role = "";
+	      try {	  
+	    	  
+	    	  rs = stmt.executeQuery(requete);
+	    	  while(rs.next()) {
+	    		  role=rs.getString("role");
+	    	  }
+	      } catch (Exception e) {
+	    	  e.printStackTrace();
+	      }
+	      return role;
+	  }
+	  
 	  public static boolean checkPseudo(String login) throws SQLException {
 		  ResultSet rs = null;
 	      String requete = "SELECT * FROM user WHERE login = '"+login+"'";
@@ -79,14 +95,16 @@ public final class UserDAO {
 	  
 	  public static ArrayList<User> getAllUsers() throws SQLException {
 		  ResultSet rs = null;
-	      String requete = "SELECT user.name as name,firstName,role,role.name as role_name "
+	      String requete = "SELECT user.name as name,login,firstName,role,role.name as role_name "
 	      		+ "FROM user,role WHERE role.id=user.role;";
 	      ArrayList<User> listUser = new ArrayList<User>();
 	      try {	  
 	    	  rs = stmt.executeQuery(requete);
 			
 	    	  while (rs.next()) {
-	    		  listUser.add(new User(rs.getString("name"),rs.getString("firstName"),rs.getString("role_name")));
+	    		  User user = new User(rs.getString("name"),rs.getString("firstName"),rs.getString("role_name"));
+	    		  user.setPseudo(rs.getString("login"));
+	    		  listUser.add(user);
 	    	  }
 			
 			
@@ -96,19 +114,46 @@ public final class UserDAO {
 	      return listUser;   
 	  }
 	  
+	  public static User getUserByPseudo(String pseudo) throws SQLException {
+		  ResultSet rs = null;
+	      String requete = "SELECT user.name as name,birthday,login,firstName,role,role.name as role_name "
+	      		+ "FROM user,role WHERE role.id=user.role AND login='"+pseudo+"';";
+	      User user = null;
+	      try {	  
+	    	  rs = stmt.executeQuery(requete);
+			
+	    	  while (rs.next()) {
+	    		  User user_test = new User(rs.getString("name"),rs.getString("firstName"),rs.getString("role_name"));
+	    		  user_test.setPseudo(rs.getString("login"));
+	    		  Date date1=new SimpleDateFormat("yyyy-mm-dd").parse(rs.getString("birthday")); 
+	    		  user_test.setAnniversaire(date1);
+	    		  user=user_test;
+	    	  }
+			
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+	      return user;  
+	  }
+	  
+	  
 	  public static ArrayList<User> getAllUsersByName(String name) throws SQLException {
 		  ResultSet rs = null;
-	      String requete = "SELECT user.name as name,firstName,role,role.name as role_name "
+	      String requete = "SELECT user.name as name,login,firstName,role,role.name as role_name "
 	      		+ "FROM user,role WHERE role.id=user.role "
 	      		+ "AND (concat(user.name , ' ' , firstName) LIKE '%"+name+"%'\r\n"
 	      		+ "OR  firstName LIKE '%"+name+"%' \r\n"
-	      		+ "OR  user.name LIKE '%"+name+"%');";
+	      		+ "OR  user.name LIKE '%"+name+"%'"
+	      		+ "OR login LIKE '%"+name+"%');";
 	      ArrayList<User> listUser = new ArrayList<User>();
 	      try {	  
 	    	  rs = stmt.executeQuery(requete);
 			
 	    	  while (rs.next()) {
-	    		  listUser.add(new User(rs.getString("name"),rs.getString("firstName"),rs.getString("role_name")));
+	    		  User user = new User(rs.getString("name"),rs.getString("firstName"),rs.getString("role_name"));
+	    		  user.setPseudo(rs.getString("login"));
+	    		  listUser.add(user);
 	    	  }
 			
 			
@@ -123,7 +168,7 @@ public final class UserDAO {
 		  DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
 		  String strDate = dateFormat.format(date);  
 		  String SQL = "INSERT INTO user(id,login,password,name,firstName,birthday,role)"
-	                + "VALUES('"+id+"','"+user.getPseudo()+"','"+mdp+"','"+user.getName()+"','"+user.getPrenom()+"','"+strDate+"','1')";
+	                + "VALUES('"+id+"','"+user.getPseudo()+"','"+mdp+"','"+user.getName()+"','"+user.getFirstName()+"','"+strDate+"','1')";
 		  try {	  
 	    	  stmt.executeUpdate(SQL);
 	    	  return true;
@@ -132,6 +177,36 @@ public final class UserDAO {
 		  }
 		  return false;
 	  }
+	  
+	  public static boolean updateUser(User user,String old_mdp,String new_mdp) throws SQLException {
+		  Date date = user.getAnniversaire();  
+		  DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
+		  String strDate = dateFormat.format(date);  
+		  String SQL = "UPDATE User"
+		  		+ " SET name='"+user.getName()+"',"
+		  				+ "firstName='"+user.getFirstName()+"',"
+		  						+ "birthday='"+strDate+"'";
+		  
+	      if (old_mdp != "" && new_mdp !="") {
+	    	  
+	    	  if(UserDAO.checkAccount(user.getPseudo(),old_mdp)) {
+	    		  SQL += ", password='"+new_mdp+"' ";
+	    	  }else return false;
+	    	  
+	      }
+	      
+	      SQL += " WHERE login='"+user.getPseudo()+"'";
+	      
+		  try {	  
+	    	  stmt.executeUpdate(SQL);
+	    	  return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(SQL);
+		  }
+		  return false;
+	  }
+	  
 	  
 	  public static int maxIdUser() {
 		  ResultSet rs = null;
