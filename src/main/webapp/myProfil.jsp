@@ -3,15 +3,14 @@
 	pageEncoding="ISO-8859-1"%>
 	
 
-<% if (session.getAttribute("login")==null){ 
+<% if (session.getAttribute("login")==null || session.getAttribute("login")==""){ 
 
 	response.sendRedirect("login.jsp");
 	
 }
 
-
-
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,7 +105,7 @@ String date_string = formatter.format(profil.getAnniversaire());
                 </div>
                 <br>
                 <div class="d-flex justify-content-center">
-                  <button type="submit" formaction="listUsers.jsp"  class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body">Annuler</button>
+                  <button type="submit" formaction="listUsers.jsp"  class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body">Retour</button>
                 </div>
                 
 

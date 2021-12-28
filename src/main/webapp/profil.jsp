@@ -63,6 +63,10 @@ String date_string = formatter.format(profil.getAnniversaire());
 				</div>
       
                 </div>
+                
+                <div class="d-flex justify-content-center">
+                  <button type="submit" formaction="listUsers.jsp"  class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body">Retour</button>
+                </div>
 
               </form>
 		</div>

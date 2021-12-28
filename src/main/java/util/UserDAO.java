@@ -229,6 +229,75 @@ public final class UserDAO {
 	      return max_id;  
 	  }
 	  
+
+	  public static String getIDbyPseudo(String pseudo) {
+		  ResultSet rs = null;
+		  String id="-1";
+		  String requete_id = "SELECT id from user WHERE login='"+pseudo+"';";
+	      try {	  
+	    	  rs = stmt.executeQuery(requete_id);
+	    	  rs.next();
+	    	  id = rs.getString("id");
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+	      
+	      return id;  
+	  }
+	  
+	  public static boolean isFriend(User user1,User user2) {
+		  
+		  ResultSet rs = null;
+		  int count = 0;
+		  String id1,id2="-1";
+		  UserDAO.getInstance();
+		  id1=UserDAO.getIDbyPseudo(user1.getPseudo());
+		  id2=UserDAO.getIDbyPseudo(user2.getPseudo());
+		  
+	      String requete = "SELECT * from friend"
+	      		+ " WHERE  ((friend1='"+id1+"' and friend2='"+id2+"') or (friend2='"+id1+"' and friend1='"+id2+"'))"
+	      		;
+	      
+	      try {	  	  
+	    	  rs = stmt.executeQuery(requete);
+	    	  while(rs.next()) {
+	    		  count++;
+	    	  }
+	      } catch (Exception e) {
+	    	  e.printStackTrace();
+	      }
+	      if (count>=1) return true;
+		  return false;
+	  }
+	  
+	  public static boolean addFriend(User user1, User user2) { 
+		  String SQL = "INSERT INTO friend(friend1,friend2,friend.update,friend.status)"
+	                + " VALUES('"+UserDAO.getIDbyPseudo(user1.getPseudo())+"','"+UserDAO.getIDbyPseudo(user2.getPseudo())+"',NOW(),'1')";
+		  try {	  
+	    	  stmt.executeUpdate(SQL);
+	    	  return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+		  return false;
+	  }
+	  
+	  public static boolean deleteFriend(User user1, User user2) { 
+		  String id1=UserDAO.getIDbyPseudo(user1.getPseudo());
+		  String id2=UserDAO.getIDbyPseudo(user2.getPseudo());
+		  String SQL = "DELETE FROM friend"
+		  		+ " WHERE ((friend1='"+id1+"' and friend2='"+id2+"') or (friend1='"+id2+"' and friend2='"+id1+"'))";
+		  System.out.println(SQL);
+		  try {	  
+	    	  stmt.executeUpdate(SQL);
+	    	  return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+		  return false;
+	  }
+	  
+	  
 	  
 		
 	

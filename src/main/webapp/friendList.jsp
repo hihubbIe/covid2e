@@ -3,7 +3,7 @@
 	pageEncoding="ISO-8859-1"%>
 	
 
-<% if (session.getAttribute("login")==null){ 
+<% if (session.getAttribute("login")==null || session.getAttribute("login")==""){ 
 
 	response.sendRedirect("login.jsp");
 	
@@ -16,7 +16,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Bienvenue</title>
+<title>Liste d'amis</title>
 
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -33,13 +33,13 @@
 <%@ page import="metier.User,util.UserDAO,java.util.ArrayList" %>
 <%@ include file="header_log.jsp" %>
 <div class="main-div2">
-	<h1>Liste des utilisateurs</h1>
+	<h1>Liste des amis</h1>
 	
 
 	<div class="container css-container">
 		<div class="main-body">
 		
-		<form action="RechercheUser" method="post" class="">
+		<form action="RechercheFriend" method="post" class="">
 		
 		<div class="input-group" style="margin-bottom:1em;">
 		  <div class="form-outline">
@@ -65,11 +65,8 @@
 				
 				User me = UserDAO.getUserByPseudo(session.getAttribute("login").toString());
 				
-				int limite_show = 0;
-				if (listUsers.size()<50) limite_show=listUsers.size();
-				else limite_show=50;
-				for (int i=0;i<limite_show;i++){
-					if (!me.getPseudo().equals(listUsers.get(i).getPseudo())){
+				for (int i=0;i<listUsers.size();i++){
+					if (UserDAO.isFriend(me, listUsers.get(i))){
 						out.println("<div class='col mb-3'>");
 						out.println("<div class='card'>");
 						out.println("<img src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ8NDQ0NFREWFhURFRUYHSggGBolGxUVITEhMSk3Ljo6Fx8zOD84NygtOjcBCgoKDQ0NDw0NDisZFRkrKy03LS0rKy03LS0tKysrNzctLTc3Nys3Ny0tLS03LTctNy03NzctKy0tKy03NzctLf/AABEIAMIBAwMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQID/8QAFhABAQEAAAAAAAAAAAAAAAAAABEB/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAEGBf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOkWCtK4aRYpASCqCQigIqgJCKoiEUFQUESCgJCLBFQWAMjSAiNAMkUBlI0AxBpBWVAGsUxVQFIKAoiCgAoCKKCCgIKIIKAgoCCgIjSAgqAgqAgqAiRpBWRpAaxTFVAUBFVABRAFBEUUEFAQUBBQEFBUFAZFEERpARGkBEUBEUVUBQVRVQFAQiqggoACiIoACgqCgiCgIKIqIoCCoCCgMigMigMioqoKA0piiIoACgAKCCggCoAQgAoCCgqAAgoCI0gIjSAgqAiKAiKCsqKDSpiqgKAAoIoIAKIigAKAgoCCgqCgIACCoCCoCCoCCoCIoKyoA3imKqIoIAoACggoCLmAIKAAAAAoigIACCgIigIioCCoCI0gMigreKKqAKggoIAoIoCgKCKAgAKAAIoCAAgoCIoCIqAgqAiNIKiKA3iiiAAAoIAoIoCgKCCgAAAAIKIIACCooIqIIKiiCoCIoKgAOgKIAAKAAKIAIoCggoAACCgIKAgAIKgCKgIKgIjSKIigqAA6BiiAAAoACoIoAAoIKAgoCCgIKgCKAgAIKgIKgqI0gIigIADeKCooCACgAAAoAAAAAAAACKAgqAIqAAAiKCoioCAAgKDagIACKAKAAoAgAAKAIoCAAACggICAoIAqagAigMgCgAP/2Q=='"+
@@ -82,17 +79,8 @@
 						out.println("<p class='font-weight-bold font-size-sm'>"+listUsers.get(i).getRole()+"</p>");
 						
 						out.println("<div class='card-footer'>");
-						
-						if (UserDAO.isFriend(me, listUsers.get(i))){
-							out.println("<form method='post' action='DeleteFriend'><input type='hidden' name='pseudo' value='"+listUsers.get(i).getPseudo()+"' /><button class='btn btn-danger btn-sm' type='submit'> <i class='material-icons'></i>Retirer des amis </button></form>");
-						}else out.println("<form method='post' action='AddFriend'><input type='hidden' name='pseudo' value='"+listUsers.get(i).getPseudo()+"' /><button class='btn btn-success btn-sm' type='submit'> <i class='material-icons'></i>Ajouter en ami </button></form>");
-						
+						out.println("<form method='post' action='DeleteFriend'><input type='hidden' name='pseudo' value='"+listUsers.get(i).getPseudo()+"' /><button class='btn btn-danger btn-sm' type='submit'> <i class='material-icons'></i>Retirer des amis </button></form>");
 						out.println("<form method='get' action='profil.jsp'><input type='hidden' name='pseudo' value='"+listUsers.get(i).getPseudo()+"' /><button class='btn btn-info btn-sm ml-3' type='submit' >Profil</button></form>");
-						
-						if (session.getAttribute("role").equals("0")){ 
-							out.println("<button class='btn btn-danger btn-sm ml-3' type='button'>BAN</button>");
-						}
-						
 						out.println("</div></div></div></div>");
 					}
 				}

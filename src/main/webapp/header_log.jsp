@@ -23,7 +23,7 @@
         <a class="nav-link nav_bar_light" href="myProfil.jsp">Mon profil <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link nav_bar_light" href="myFriends.jsp">Mes amis <span class="sr-only">(current)</span></a>
+        <a class="nav-link nav_bar_light" href="friendList.jsp">Mes amis <span class="sr-only">(current)</span></a>
       </li>
     </ul>
     
