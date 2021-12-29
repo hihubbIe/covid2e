@@ -39,6 +39,10 @@ String date_string = formatter.format(profil.getAnniversaire());
 		<div class="main-body">
 			<h1>Profil de : <% out.println(profil.getPseudo()); %></h1>
 			
+			<%if (profil.getPhoto()!= null && !profil.getPhoto().equals("")) 
+				out.println("<img src='"+profil.getPhoto()
+				+"' style='width: 100px; height:100px; margin-top: -65px' alt='User' class='img-fluid img-thumbnail rounded-circle border-1 mb-3'>"); %>
+			
 			
                 <form action="UpdateProfil" method="post" class="">
                 
@@ -86,6 +90,18 @@ String date_string = formatter.format(profil.getAnniversaire());
 				    <input class="form-control form-control-lg" type="text" id="datepicker" placeholder="dd/mm/yyyy" name="anni" value="<%out.println(date_string);%>"/> 
 				       <span class="add-on"><i class="icon-calendar" id="cal2"></i></span>
 				</div>
+				
+				 <div class="form-outline mb-4 mt-4">
+                 <label class="form-label">Photo de profil (url)</label>
+                  <input type="text" class="form-control form-control-lg" name="photo" value="<%
+                  
+                  if (profil.getPhoto() != null && !profil.getPhoto().equals("null"))
+                  out.println(profil.getPhoto());
+                  else out.println("");
+               
+                  
+                  %>"/>
+                </div>
 				
 				 <div class="form-outline mb-4 mt-4">
                 <label class="form-label">Ancien mot de passe</label>

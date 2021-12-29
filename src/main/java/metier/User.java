@@ -9,11 +9,20 @@ public class User {
 	private String firstName;
 	private String role;
 	private Date anniversaire=null;
+	private String photo="";
 
 	public User(String name, String prenom, String role) {
 		this.name=name;
 		this.firstName=prenom;
 		this.role=role;
+	}
+	
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 	
 	public String getPseudo() {

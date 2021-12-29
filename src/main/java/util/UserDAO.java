@@ -95,7 +95,7 @@ public final class UserDAO {
 	  
 	  public static ArrayList<User> getAllUsers() throws SQLException {
 		  ResultSet rs = null;
-	      String requete = "SELECT user.name as name,login,firstName,role,role.name as role_name "
+	      String requete = "SELECT user.name as name,photo,login,firstName,role,role.name as role_name "
 	      		+ "FROM user,role WHERE role.id=user.role;";
 	      ArrayList<User> listUser = new ArrayList<User>();
 	      try {	  
@@ -104,6 +104,8 @@ public final class UserDAO {
 	    	  while (rs.next()) {
 	    		  User user = new User(rs.getString("name"),rs.getString("firstName"),rs.getString("role_name"));
 	    		  user.setPseudo(rs.getString("login"));
+	    		  user.setPhoto(rs.getString("photo"));
+	    		  
 	    		  listUser.add(user);
 	    	  }
 			
@@ -116,7 +118,7 @@ public final class UserDAO {
 	  
 	  public static User getUserByPseudo(String pseudo) throws SQLException {
 		  ResultSet rs = null;
-	      String requete = "SELECT user.name as name,birthday,login,firstName,role,role.name as role_name "
+	      String requete = "SELECT user.name as name,birthday,login,photo,firstName,role,role.name as role_name "
 	      		+ "FROM user,role WHERE role.id=user.role AND login='"+pseudo+"';";
 	      User user = null;
 	      try {	  
@@ -127,6 +129,7 @@ public final class UserDAO {
 	    		  user_test.setPseudo(rs.getString("login"));
 	    		  Date date1=new SimpleDateFormat("yyyy-mm-dd").parse(rs.getString("birthday")); 
 	    		  user_test.setAnniversaire(date1);
+	    		  user_test.setPhoto(rs.getString("photo"));
 	    		  user=user_test;
 	    	  }
 			
@@ -139,7 +142,7 @@ public final class UserDAO {
 	  
 	  public static User getUserById(String id) throws SQLException {
 		  ResultSet rs = null;
-	      String requete = "SELECT user.id,user.name as name,birthday,login,firstName,role,role.name as role_name "
+	      String requete = "SELECT user.id,user.name as name,birthday,login,photo,firstName,role,role.name as role_name "
 	      		+ "FROM user,role WHERE role.id=user.role AND user.id='"+id+"';";
 	      User user = null;
 	      try {	  
@@ -150,6 +153,7 @@ public final class UserDAO {
 	    		  user_test.setPseudo(rs.getString("login"));
 	    		  Date date1=new SimpleDateFormat("yyyy-mm-dd").parse(rs.getString("birthday")); 
 	    		  user_test.setAnniversaire(date1);
+	    		  user_test.setPhoto(rs.getString("photo"));
 	    		  user=user_test;
 	    	  }
 			
@@ -163,7 +167,7 @@ public final class UserDAO {
 	  
 	  public static ArrayList<User> getAllUsersByName(String name) throws SQLException {
 		  ResultSet rs = null;
-	      String requete = "SELECT user.name as name,login,firstName,role,role.name as role_name "
+	      String requete = "SELECT user.name as name,photo,login,firstName,role,role.name as role_name "
 	      		+ "FROM user,role WHERE role.id=user.role "
 	      		+ "AND (concat(user.name , ' ' , firstName) LIKE '%"+name+"%'\r\n"
 	      		+ "OR  firstName LIKE '%"+name+"%' \r\n"
@@ -176,6 +180,7 @@ public final class UserDAO {
 	    	  while (rs.next()) {
 	    		  User user = new User(rs.getString("name"),rs.getString("firstName"),rs.getString("role_name"));
 	    		  user.setPseudo(rs.getString("login"));
+	    		  user.setPhoto(rs.getString("photo"));
 	    		  listUser.add(user);
 	    	  }
 			
@@ -208,7 +213,8 @@ public final class UserDAO {
 		  String SQL = "UPDATE User"
 		  		+ " SET name='"+user.getName()+"',"
 		  				+ "firstName='"+user.getFirstName()+"',"
-		  						+ "birthday='"+strDate+"'";
+		  						+ "birthday='"+strDate+"',"
+		  							+"photo='"+user.getPhoto()+"'";
 		  
 	      if (old_mdp != "" && new_mdp !="") {
 	    	  

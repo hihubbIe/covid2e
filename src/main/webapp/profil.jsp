@@ -38,6 +38,10 @@ String date_string = formatter.format(profil.getAnniversaire());
 		<div class="main-body">
 			<h1>Profil de : <% out.println(profil.getPseudo()); %></h1>
 			
+			<%if (profil.getPhoto()!= null && !profil.getPhoto().equals("")) 
+				out.println("<img src='"+profil.getPhoto()
+				+"' style='width: 100px; height:100px; margin-top: -65px' alt='User' class='img-fluid img-thumbnail rounded-circle border-1 mb-3'>"); %>
+			
 			
                 <form>
               

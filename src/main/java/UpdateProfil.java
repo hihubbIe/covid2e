@@ -50,6 +50,10 @@ public class UpdateProfil extends HttpServlet {
 	    String date = request.getParameter("anni");
 	    String pseudo = request.getParameter("pseudo");
 	    Date date1 = null;
+	    String photo = request.getParameter("photo");
+	    photo=photo.replaceAll("\\<.*?\\>","");
+	    
+	   
 	    
 	    HttpSession session = request.getSession();
 	    
@@ -64,8 +68,11 @@ public class UpdateProfil extends HttpServlet {
 		User user_insert = new User(nom,prenom,session.getAttribute("role").toString());
 		user_insert.setAnniversaire(date1);
 		user_insert.setPseudo(pseudo);
+	
 		String old_mdp=request.getParameter("old_mdp");
 		String new_mdp=request.getParameter("new_mdp");
+		
+		if (photo != "") user_insert.setPhoto(photo);
 		
 		if (old_mdp !="" && new_mdp !="") {
 			old_mdp = Hash.sha256(old_mdp);

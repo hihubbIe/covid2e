@@ -73,7 +73,12 @@
 						out.println("<img src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ8NDQ0NFREWFhURFRUYHSggGBolGxUVITEhMSk3Ljo6Fx8zOD84NygtOjcBCgoKDQ0NDw0NDisZFRkrKy03LS0rKy03LS0tKysrNzctLTc3Nys3Ny0tLS03LTctNy03NzctKy0tKy03NzctLf/AABEIAMIBAwMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQID/8QAFhABAQEAAAAAAAAAAAAAAAAAABEB/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAEGBf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOkWCtK4aRYpASCqCQigIqgJCKoiEUFQUESCgJCLBFQWAMjSAiNAMkUBlI0AxBpBWVAGsUxVQFIKAoiCgAoCKKCCgIKIIKAgoCCgIjSAgqAgqAgqAiRpBWRpAaxTFVAUBFVABRAFBEUUEFAQUBBQEFBUFAZFEERpARGkBEUBEUVUBQVRVQFAQiqggoACiIoACgqCgiCgIKIqIoCCoCCgMigMigMioqoKA0piiIoACgAKCCggCoAQgAoCCgqAAgoCI0gIjSAgqAiKAiKCsqKDSpiqgKAAoIoIAKIigAKAgoCCgqCgIACCoCCoCCoCCoCIoKyoA3imKqIoIAoACggoCLmAIKAAAAAoigIACCgIigIioCCoCI0gMigreKKqAKggoIAoIoCgKCKAgAKAAIoCAAgoCIoCIqAgqAiNIKiKA3iiiAAAoIAoIoCgKCCgAAAAIKIIACCooIqIIKiiCoCIoKgAOgKIAAKAAKIAIoCggoAACCgIKAgAIKgCKgIKgIjSKIigqAA6BiiAAAoACoIoAAoIKAgoCCgIKgCKAgAIKgIKgqI0gIigIADeKCooCACgAAAoAAAAAAAACKAgqAIqAAAiKCoioCAAgKDagIACKAKAAoAgAAKAIoCAAACggICAoIAqagAigMgCgAP/2Q=='"+
 						" alt='Cover' class='card-img-top' style='height:5em;'>");
 						out.println("<div class='card-body text-center'>");
-						out.println("<img src='https://bootdey.com/img/Content/avatar/avatar7.png' style='width: 100px; margin-top: -65px' alt='User' class='img-fluid img-thumbnail rounded-circle border-0 mb-3'>");
+						
+						String image_profil="https://bootdey.com/img/Content/avatar/avatar7.png";
+												
+						if (listUsers.get(i).getPhoto()!= null) image_profil = listUsers.get(i).getPhoto();
+						
+						out.println("<img src='"+image_profil+"' style='width: 100px; margin-top: -65px' alt='User' class='img-fluid img-thumbnail rounded-circle border-0 mb-3'>");
 						
 						out.println("<h5 class='card-title'>"+listUsers.get(i).getFirstName()+" "+listUsers.get(i).getName()+"</h5>");
 						out.println("<p class='text-secondary mb-1'>"+listUsers.get(i).getPseudo()+"</p>");
