@@ -31,6 +31,7 @@
 </head>
 
 <%@ include file="header_log.jsp" %>
+<%@ page import="java.text.DateFormat,java.text.SimpleDateFormat" %>
 <div class="main-div2">
 	<h1>Mes notifications</h1>
 	
@@ -52,8 +53,11 @@
 					out.println("<h2>Vous n'avez pas de notifications !</h2>");
 				}else{
 					out.println("<ul style='min-width:500px;' class='list-group'>");
+					DateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
 					for (int i = 0; i<listNotifs.size();i++){
+						
 						String content=listNotifs.get(i).getContent();
+						
 						String notif_string = "";
 						notif_string = " <li class='list-group-item'>";
 						notif_string += " <form action='DeleteNotification' method='post' class=''>";
@@ -66,6 +70,7 @@
 							notif_string +="<form action='AddFriend' method='get'>";
 							notif_string +="<input type='hidden' name='id_user_cible' value='"+id+"' />"+"<input type='hidden' name='id_notif' value='"+listNotifs.get(i).getId()+"' />"+"<button style='float:right;margin-top:1em;margin-right:-5.2em;' class='btn btn-success btn-sm' type='submit'> <i class='material-icons'></i>Accepter</button>";
 						}
+						notif_string +="<div class='font-weight-light' >le "+formatter.format(listNotifs.get(i).getReceivedDate())+"</div>";
 						notif_string+="</li>";
 						
 						out.println(notif_string);
