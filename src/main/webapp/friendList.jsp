@@ -74,11 +74,11 @@
 						" alt='Cover' class='card-img-top' style='height:5em;'>");
 						out.println("<div class='card-body text-center'>");
 						
-						String image_profil="https://bootdey.com/img/Content/avatar/avatar7.png";
-												
+	String 				image_profil="https://bootdey.com/img/Content/avatar/avatar7.png";
+						
 						if (listUsers.get(i).getPhoto()!= null) image_profil = listUsers.get(i).getPhoto();
 						
-						out.println("<img src='"+image_profil+"' style='width: 100px; margin-top: -65px' alt='User' class='img-fluid img-thumbnail rounded-circle border-0 mb-3'>");
+						out.println("<img src='"+image_profil+"' style='width: 100px; height:100px; margin-top: -65px' alt='User' class='img-fluid img-thumbnail rounded-circle border-0 mb-3'>");
 						
 						out.println("<h5 class='card-title'>"+listUsers.get(i).getFirstName()+" "+listUsers.get(i).getName()+"</h5>");
 						out.println("<p class='text-secondary mb-1'>"+listUsers.get(i).getPseudo()+"</p>");
