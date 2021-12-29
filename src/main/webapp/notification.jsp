@@ -53,7 +53,10 @@
 				}else{
 					out.println("<ul style='min-width:500px;' class='list-group'>");
 					for (int i = 0; i<listNotifs.size();i++){
-						out.println("<a href='#' class='list-group-item list-group-item-action'>"+listNotifs.get(i).getContent()+"</a>");
+						out.println(" <li class='list-group-item'>"
+						+" <form action='DeleteNotification' method='post' class=''>"+listNotifs.get(i).getContent()+"<input type='hidden' name='id' value='"
+						+listNotifs.get(i).getId()+"'/> <button class='btn btn-danger btn-sm' style='float:right;' type='submit'>"
+						+" <i class='material-icons'></i>Supprimer</button> </form>"+"</li>");
 					}
 					
 					out .println("</ul>");

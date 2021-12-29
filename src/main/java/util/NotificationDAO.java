@@ -59,5 +59,17 @@ public final class NotificationDAO {
 	      return listNotification;   
 	  }
 	  
+	  public static boolean deleteNotif(String id) { 
+
+		  String SQL = "DELETE FROM NOTIFICATION WHERE id="+id+";";
+		  try {	  
+	    	  stmt.executeUpdate(SQL);
+	    	  return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+		  return false;
+	  }
+	  
 	  
 	}

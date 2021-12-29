@@ -310,7 +310,6 @@ public final class UserDAO {
 		  String id2=UserDAO.getIDbyPseudo(user2.getPseudo());
 		  String SQL = "DELETE FROM friend"
 		  		+ " WHERE ((friend1='"+id1+"' and friend2='"+id2+"') or (friend1='"+id2+"' and friend2='"+id1+"'))";
-		  System.out.println(SQL);
 		  try {	  
 	    	  stmt.executeUpdate(SQL);
 	    	  return true;
