@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import metier.User;
 import util.Hash;
+import util.NotificationDAO;
 import util.UserDAO;
 
 /**
@@ -36,8 +37,25 @@ public class AddFriend extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String id = request.getParameter("id_user_cible");
+		String id_notif = request.getParameter("id_notif");
+		UserDAO.getInstance();
+		NotificationDAO.getInstance();
+		HttpSession session = request.getSession();
+
+		try {
+			User user1 = UserDAO.getUserByPseudo(session.getAttribute("login").toString());
+			User user2 = UserDAO.getUserById(id);
+			UserDAO.addFriend(user1, user2);
+			NotificationDAO.insertNotification(UserDAO.getIDbyPseudo(user2.getPseudo()), new Date(),user1.getPseudo()+" vous a ajouté en ami");
+			NotificationDAO.deleteNotif(id_notif);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		response.sendRedirect("listUsers.jsp");
+		
 	}
 
 	/**
@@ -47,18 +65,20 @@ public class AddFriend extends HttpServlet {
 		
 		String pseudo = request.getParameter("pseudo");		 
 		UserDAO.getInstance();
+		NotificationDAO.getInstance();
 		HttpSession session = request.getSession();
 
 		try {
 			User user1 = UserDAO.getUserByPseudo(session.getAttribute("login").toString());
 			User user2 = UserDAO.getUserByPseudo(pseudo);
-			UserDAO.addFriend(user1, user2);
+			NotificationDAO.insertNotification(UserDAO.getIDbyPseudo(user2.getPseudo()), new Date(), "[ADD]-"+UserDAO.getIDbyPseudo(user1.getPseudo())+" | "+user1.getPseudo()+" veut vous ajouter en ami");
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		response.sendRedirect("listUsers.jsp");
+		response.sendRedirect("listUsers.jsp?add="+pseudo);
 		
 	}
 

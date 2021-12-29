@@ -294,13 +294,15 @@ public final class UserDAO {
 	  }
 	  
 	  public static boolean addFriend(User user1, User user2) { 
-		  String SQL = "INSERT INTO friend(friend1,friend2,friend.update,friend.status)"
-	                + " VALUES('"+UserDAO.getIDbyPseudo(user1.getPseudo())+"','"+UserDAO.getIDbyPseudo(user2.getPseudo())+"',NOW(),'1')";
-		  try {	  
-	    	  stmt.executeUpdate(SQL);
-	    	  return true;
-			} catch (Exception e) {
-				e.printStackTrace();
+		  if (!UserDAO.isFriend(user1, user2)) {
+			  String SQL = "INSERT INTO friend(friend1,friend2,friend.update,friend.status)"
+		                + " VALUES('"+UserDAO.getIDbyPseudo(user1.getPseudo())+"','"+UserDAO.getIDbyPseudo(user2.getPseudo())+"',NOW(),'1')";
+			  try {	  
+		    	  stmt.executeUpdate(SQL);
+		    	  return true;
+				} catch (Exception e) {
+					e.printStackTrace();
+			  }
 		  }
 		  return false;
 	  }

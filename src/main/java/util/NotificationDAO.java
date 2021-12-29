@@ -71,5 +71,43 @@ public final class NotificationDAO {
 		  return false;
 	  }
 	  
+	  public static boolean insertNotification(String id_user,Date receivedDate, String content) { 
+		  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+		  String strDate = dateFormat.format(receivedDate);  
+		  String id = String.valueOf(NotificationDAO.maxIdNotif());
+		  String SQL = "INSERT INTO Notification(id,user,receivedDate,content) "
+	                + "VALUES('"+id+"','"+id_user+"','"+strDate+"','"+content+"')";
+		  
+		  try {	  
+	    	  stmt.executeUpdate(SQL);
+	    	  return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+		  return false;
+	  }
+	  
+	  public static int maxIdNotif() {
+		  ResultSet rs = null;
+		  int max_id=-1;
+		  String requete_id = "SELECT MAX(id) as id FROM notification LIMIT 1";
+	      try {	  
+	    	  rs = stmt.executeQuery(requete_id);
+			
+	    	  while (rs.next()) {
+	    		  max_id=rs.getInt("id");
+	    	  }
+			
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+	      
+	      if (max_id != -1) max_id+=1;
+	      return max_id;  
+	  }
+	  
+	  
+	  
 	  
 	}

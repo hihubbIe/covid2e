@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import metier.User;
 import util.Hash;
+import util.NotificationDAO;
 import util.UserDAO;
 
 /**
@@ -47,12 +48,17 @@ public class DeleteFriend extends HttpServlet {
 		
 		String pseudo = request.getParameter("pseudo");		 
 		UserDAO.getInstance();
+		NotificationDAO.getInstance();
+		
+		
+		
 		HttpSession session = request.getSession();
 
 		try {
 			User user1 = UserDAO.getUserByPseudo(session.getAttribute("login").toString());
 			User user2 = UserDAO.getUserByPseudo(pseudo);
 			UserDAO.deleteFriend(user1, user2);
+			NotificationDAO.insertNotification(UserDAO.getIDbyPseudo(user2.getPseudo()), new Date(), user1.getPseudo()+" vous a retiré de sa liste d amis.");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

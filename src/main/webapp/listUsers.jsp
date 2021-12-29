@@ -53,11 +53,21 @@
 		  </button>
 		</div>
 		
+		<%			
+		
+		String testcompte = request.getParameter("add");
+        if (testcompte != null && testcompte != ""){
+        	out.println("<div style='color:green;'> Vous avez demandé "+testcompte+" en ami ! </div>");
+        }
+		
+        %>
+		
 		</form>
 
 
 			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
 			<%
+			
 			ArrayList<User> listUsers = new ArrayList<User>();
 				UserDAO.getInstance();
 				if(request.getParameter("filtre")==null) listUsers = UserDAO.getAllUsers();

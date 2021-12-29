@@ -53,10 +53,23 @@
 				}else{
 					out.println("<ul style='min-width:500px;' class='list-group'>");
 					for (int i = 0; i<listNotifs.size();i++){
-						out.println(" <li class='list-group-item'>"
-						+" <form action='DeleteNotification' method='post' class=''>"+listNotifs.get(i).getContent()+"<input type='hidden' name='id' value='"
-						+listNotifs.get(i).getId()+"'/> <button class='btn btn-danger btn-sm' style='float:right;' type='submit'>"
-						+" <i class='material-icons'></i>Supprimer</button> </form>"+"</li>");
+						String content=listNotifs.get(i).getContent();
+						String notif_string = "";
+						notif_string = " <li class='list-group-item'>";
+						notif_string += " <form action='DeleteNotification' method='post' class=''>";
+						notif_string += listNotifs.get(i).getContent().substring(content.indexOf("|")+1)+"<input type='hidden' name='id' value='";
+						notif_string += listNotifs.get(i).getId()+"'/> <button class='btn btn-danger btn-sm' style='float:right;' type='submit'>"
+								+" <i class='material-icons'></i>Supprimer</button>";
+						notif_string +="</form>";		
+						if (content.substring(0,5).equals("[ADD]")){
+							String id=content.substring(content.indexOf("-")+1,content.indexOf("|"));
+							notif_string +="<form action='AddFriend' method='get'>";
+							notif_string +="<input type='hidden' name='id_user_cible' value='"+id+"' />"+"<input type='hidden' name='id_notif' value='"+listNotifs.get(i).getId()+"' />"+"<button style='float:right;margin-top:1em;margin-right:-5.2em;' class='btn btn-success btn-sm' type='submit'> <i class='material-icons'></i>Accepter</button>";
+						}
+						notif_string+="</li>";
+						
+						out.println(notif_string);
+					
 					}
 					
 					out .println("</ul>");

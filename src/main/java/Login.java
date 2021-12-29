@@ -45,6 +45,7 @@ public class Login extends HttpServlet {
 				     session.setAttribute("login", nom);
 				     session.setAttribute("mdp", mdp);
 				     session.setAttribute("role", UserDAO.checkRole(nom, mdp));
+				     session.setAttribute("id", UserDAO.getUserByPseudo(nom));
 				     response.sendRedirect("listUsers.jsp");
 				 }else
 				 {
