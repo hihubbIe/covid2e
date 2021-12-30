@@ -93,6 +93,11 @@ if (session.getAttribute("login") == null || session.getAttribute("login") == ""
 										<button type="submit" formaction="index.jsp"
 											class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body">Annuler</button>
 									</div>
+									<br>
+									<div class="d-flex justify-content-center">
+										<button type="submit" formaction="lieu.jsp"
+											class="btn btn-info btn-block btn-lg gradient-custom-4 text-body">Ajouter un lieu</button>
+									</div>
 								</form>
 							</div>
 
