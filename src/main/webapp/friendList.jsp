@@ -2,16 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	
-
-<% if (session.getAttribute("login")==null || session.getAttribute("login")==""){ 
-
-	response.sendRedirect("login.jsp");
-	
+<% if (session.getAttribute("login") == null || session.getAttribute("login") == ""){ 
+	response.sendRedirect("index.jsp");
 }
-
-
-
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,7 +69,7 @@
 						" alt='Cover' class='card-img-top' style='height:5em;'>");
 						out.println("<div class='card-body text-center'>");
 						
-	String 				image_profil="https://bootdey.com/img/Content/avatar/avatar7.png";
+	                    String image_profil="https://bootdey.com/img/Content/avatar/avatar7.png";
 						
 						if (listUsers.get(i).getPhoto()!= null) image_profil = listUsers.get(i).getPhoto();
 						

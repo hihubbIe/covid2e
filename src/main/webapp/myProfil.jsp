@@ -3,12 +3,9 @@
 	pageEncoding="ISO-8859-1"%>
 	
 
-<% if (session.getAttribute("login")==null || session.getAttribute("login")==""){ 
-
-	response.sendRedirect("login.jsp");
-	
+<% if (session.getAttribute("login") == null || session.getAttribute("login") == ""){ 
+	response.sendRedirect("index.jsp");
 }
-
 %>
 
 <!DOCTYPE html>

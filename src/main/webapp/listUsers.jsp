@@ -2,16 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	
-
-<% if (session.getAttribute("login")==null){ 
-
-	response.sendRedirect("login.jsp");
-	
+<% if (session.getAttribute("login") == null || session.getAttribute("login") == ""){ 
+	response.sendRedirect("index.jsp");
 }
-
-
-
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
