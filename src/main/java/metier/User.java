@@ -42,13 +42,17 @@ public class User {
 	}
 	
 	public String getName() {
-		return name;
+		String str = name;
+		String cap = str.substring(0, 1).toUpperCase() + str.substring(1);
+		return cap;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
 	public String getFirstName() {
-		return firstName;
+		String str = firstName;
+		String cap = str.substring(0, 1).toUpperCase() + str.substring(1);
+		return cap;
 	}
 	public void setFirstName(String prenom) {
 		this.firstName = prenom;

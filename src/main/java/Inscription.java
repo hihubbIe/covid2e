@@ -43,9 +43,9 @@ public class Inscription extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		 String nom = request.getParameter("nom");
-		 String prenom = request.getParameter("prenom");
-		 String pseudo = request.getParameter("pseudo");
+		 String nom = request.getParameter("nom").trim().replaceAll(" +", " ");
+		 String prenom = request.getParameter("prenom").trim().replaceAll(" +", " ");
+		 String pseudo = request.getParameter("pseudo").trim().replaceAll(" +", " ").toLowerCase();
 		 String date = request.getParameter("anni");
 		 
 		

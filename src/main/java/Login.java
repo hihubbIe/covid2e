@@ -34,7 +34,7 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		 String nom = request.getParameter("name");
+		 String nom = request.getParameter("name").trim().replaceAll(" +", "").toLowerCase();
 	     String mdp = Hash.sha256(request.getParameter("password"));
 	     
 	     if (nom != null && mdp != null) {
