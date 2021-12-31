@@ -103,10 +103,15 @@ if (session.getAttribute("login") == null || session.getAttribute("login") == ""
 											class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Ajouter</button>
 									</div>
 									<br>
+						
+								</form>
+								<form action="activite.jsp">
+								
 									<div class="d-flex justify-content-center">
-										<button type="submit" formaction="index.jsp"
+										<button type="submit"
 											class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body">Annuler</button>
 									</div>
+								
 								</form>
 							</div>
 

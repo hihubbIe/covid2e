@@ -11,6 +11,8 @@ public class Lieu {
 	private String country;
 	private String coord;
 	
+	private String id;
+	
 	
 	
 	public Lieu(int num, String street, String zipcode, String city, String country) {
@@ -64,6 +66,21 @@ public class Lieu {
 	public void setCoord(String coord) {
 		this.coord = coord;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	@Override
+	public String toString() {
+		return num+" "+street+" "+zipcode+" "+city;
+		
+	}
+	
 	
 	
 	

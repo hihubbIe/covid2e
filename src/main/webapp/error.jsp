@@ -29,6 +29,15 @@
         <br>
         <h3>La page que vous recherchez est inexistante !</h3>
       </div>
+      
+      <form action="index.jsp" class="mb-4">
+      
+         <div class="d-flex justify-content-center mb-4">
+                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Retour</button>
+                </div>
+      
+      </form>
+                
 
     </main>
 </div>

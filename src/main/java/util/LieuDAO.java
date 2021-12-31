@@ -51,6 +51,7 @@ public final class LieuDAO {
 	    				  rs.getString("zipcode"), rs.getString("city"), rs.getString("country"));
 	    		  lieu.setCoord(rs.getString("coordinates"));
 	    		  lieu.setName(rs.getString("name"));
+	    		  lieu.setId(rs.getString("id"));
 	    		  listLieu.add(lieu);
 	    	  }
 			
@@ -59,6 +60,30 @@ public final class LieuDAO {
 				e.printStackTrace();
 		  }
 	      return listLieu;
+	  }
+	  
+	  
+	  public static Lieu getLieuByID(String id) throws SQLException {
+		  ResultSet rs = null;
+	      String requete = "SELECT * FROM address WHERE id="+id;
+	      
+	      try {	  
+	    	  rs = stmt.executeQuery(requete);
+			
+	    	  while (rs.next()) {
+	    		  Lieu lieu = new Lieu(rs.getInt("number"), rs.getString("street"), 
+	    				  rs.getString("zipcode"), rs.getString("city"), rs.getString("country"));
+	    		  lieu.setCoord(rs.getString("coordinates"));
+	    		  lieu.setName(rs.getString("name"));
+	    		  lieu.setId(rs.getString("id"));
+	    		  return lieu;
+	    	  }
+			
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+	      return null;
 	  }
 	  
 	  public static boolean insertLieu(Lieu lieu) { 
@@ -95,7 +120,5 @@ public final class LieuDAO {
 	      if (max_id != -1) max_id+=1;
 	      return max_id;  
 	  }
-	  
-	  
 	  
 	}
