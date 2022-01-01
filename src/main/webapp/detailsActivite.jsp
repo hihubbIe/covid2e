@@ -26,7 +26,7 @@
 <%@ include file="header_log.jsp" %>
 <% Activite acti = ActiviteDAO.getActiviteByID(request.getParameter("id_activite"));
 User profil = UserDAO.getUserById(ActiviteDAO.getActiviteIdUser(request.getParameter("id_activite")));
-SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");  
+SimpleDateFormat formatter = new SimpleDateFormat("EEEE dd MMMM yyyy à hh:mm");  
 String DateDebut = formatter.format(acti.getStart());  
 String DateFin = formatter.format(acti.getEnd());  
 %>

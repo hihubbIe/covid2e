@@ -193,10 +193,12 @@ public final class UserDAO {
 		  ResultSet rs = null;
 	      String requete = "SELECT user.name as name,photo,login,firstName,role,role.name as role_name "
 	      		+ "FROM user,role WHERE role.id=user.role "
-	      		+ "AND (concat(user.name , ' ' , firstName) LIKE '%"+name+"%'\r\n"
-	      		+ "OR  firstName LIKE '%"+name+"%' \r\n"
-	      		+ "OR  user.name LIKE '%"+name+"%'"
+	      		+ "AND (concat(user.name , ' ' , firstName) LIKE '%"+name+"%' "
+	      		+ "OR  (concat(firstName , ' ' , user.name) LIKE '%"+name+"%') "
+	      		+ "OR  firstName LIKE '%"+name+"%' "
+	      		+ "OR  user.name LIKE '%"+name+"%' "
 	      		+ "OR login LIKE '%"+name+"%');";
+	      System.out.println(requete);
 	      ArrayList<User> listUser = new ArrayList<User>();
 	      try {	  
 	    	  rs = stmt.executeQuery(requete);
