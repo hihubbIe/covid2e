@@ -79,7 +79,9 @@ public class AddActivite extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			ActiviteDAO.insertActivite(act);
+			HttpSession session = request.getSession();
+			
+			ActiviteDAO.insertActivite(act,session.getAttribute("login").toString());
 			
 			response.sendRedirect("activite.jsp?success=1");
 		}

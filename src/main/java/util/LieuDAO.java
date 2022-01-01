@@ -104,7 +104,7 @@ public final class LieuDAO {
 	  public static int maxIdLieu() {
 		  ResultSet rs = null;
 		  int max_id=-1;
-		  String requete_id = "SELECT MAX(id) as id FROM address LIMIT 1";
+		  String requete_id = "SELECT MAX(CONVERT(id, SIGNED)) as id FROM address LIMIT 1";
 	      try {	  
 	    	  rs = stmt.executeQuery(requete_id);
 			

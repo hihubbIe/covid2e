@@ -116,6 +116,30 @@ public final class UserDAO {
 	      return listUser;   
 	  }
 	  
+	  public static ArrayList<User> getAllUsersByActivite(String id_activite) throws SQLException {
+		  ResultSet rs = null;
+		   String requete = "SELECT user.name as name,photo,login,firstName,role,role.name as role_name "
+		      		+ "FROM user,role,participates WHERE role.id=user.role AND user.id=participates.user AND activity="+id_activite;
+	      ArrayList<User> listUser = new ArrayList<User>();
+	      try {	  
+	    	  rs = stmt.executeQuery(requete);
+			
+	    	  while (rs.next()) {
+	    		  User user = new User(rs.getString("name"),rs.getString("firstName"),rs.getString("role_name"));
+	    		  user.setPseudo(rs.getString("login"));
+	    		  user.setPhoto(rs.getString("photo"));
+	    		  
+	    		  listUser.add(user);
+	    	  }
+			
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+	      System.out.println("fck"+listUser+id_activite);
+	      return listUser;   
+	  }
+	  
 	  public static User getUserByPseudo(String pseudo) throws SQLException {
 		  ResultSet rs = null;
 	      String requete = "SELECT user.name as name,birthday,login,photo,firstName,role,role.name as role_name "
@@ -240,7 +264,7 @@ public final class UserDAO {
 	  public static int maxIdUser() {
 		  ResultSet rs = null;
 		  int max_id=-1;
-		  String requete_id = "SELECT MAX(id) as id FROM user LIMIT 1";
+		  String requete_id = "SELECT MAX(CONVERT(id, SIGNED)) as id FROM user LIMIT 1";
 	      ArrayList<User> listUser = new ArrayList<User>();
 	      try {	  
 	    	  rs = stmt.executeQuery(requete_id);
