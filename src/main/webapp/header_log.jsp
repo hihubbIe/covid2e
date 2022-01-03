@@ -31,7 +31,16 @@ util.PaysDAO,util.LieuDAO,metier.Lieu,metier.Activite,util.ActiviteDAO" %>
         <a class="nav-link nav_bar_light" href="friendList.jsp">Mes amis <span class="sr-only">(current)</span></a>
       </li>
        <li class="nav-item active">
-        <a class="nav-link nav_bar_light" href="listActivite.jsp">Activités <span class="sr-only">(current)</span></a>
+       <div class="btn-group" role="group">
+       <a class="nav-link nav_bar_light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+	      Activités
+	    </a>
+	        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+		        <a class="nav-link dropdown-item" href="listActivite.jsp">Activités <span class="sr-only">(current)</span></a>
+		        <a class="nav-link dropdown-item" href="listActivite.jsp?mylist=1">Mes activités <span class="sr-only">(current)</span></a>
+		        <a class="nav-link dropdown-item" href="listActivite.jsp?myparticipation=1">Mes participations <span class="sr-only">(current)</span></a>
+		    </div>
+	    </div>
       </li>
        <li class="nav-item active">
         <a class="nav-link nav_bar_light" href="notification.jsp"><img style="width:1em;filter: invert(1);" alt="notification" src="https://www.pinclipart.com/picdir/big/185-1850576_png-file-white-bell-notification-icon-transparent-clipart.png">

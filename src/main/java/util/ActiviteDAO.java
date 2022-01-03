@@ -73,6 +73,58 @@ public final class ActiviteDAO {
 	      return listActivite;
 	  }
 	  
+	  public static ArrayList<Activite> getAllActiviteByUser(String id_user) throws SQLException {
+		  ResultSet rs = null;
+	      String requete = "SELECT * FROM activity,organises WHERE start >= NOW() AND id=activity AND user="
+		  +id_user+" ORDER BY start ASC;";
+	      ArrayList<Activite> listActivite = new ArrayList<Activite>();
+	      LieuDAO.getInstance();
+	      
+	      try {	  
+	    	  rs = stmt.executeQuery(requete);
+			
+	    	  while (rs.next()) {
+	    		String name = rs.getString("name");
+	    		String id = rs.getString("id");
+	    		String id_lieu = rs.getString("address");
+	    		String debut = rs.getString("start");
+	    		String fin = rs.getString("end");
+	    		
+	    		Date debut_date = new SimpleDateFormat("yyyy-mm-dd hh:mm").parse(debut);
+	    		Date fin_date = new SimpleDateFormat("yyyy-mm-dd hh:mm").parse(fin);
+	    		Lieu lieu = LieuDAO.getLieuByID(id_lieu);
+	    		lieu.setId(id_lieu);
+	    		
+	    		Activite act = new Activite (name,lieu,debut_date,fin_date);
+	    		act.setId(id);
+	    		
+	    		listActivite.add(act);
+	    	  }
+			
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+	      return listActivite;
+	  }
+	  
+	  public static boolean updateActivite(Activite acti) throws SQLException {
+		  Date date_debut = acti.getStart();
+		  Date date_fin = acti.getEnd();
+		  
+		  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");  
+		  String date_debut_str = dateFormat.format(date_debut);  
+		  String date_fin_str = dateFormat.format(date_fin);  
+		  
+		  String SQL = "UPDATE activity SET name='"+acti.getName()+"',address='"+acti.getAddress().getId()+"',start='"
+		  +date_debut_str+"',end='"
+		  +date_fin_str+"' WHERE id='"+acti.getId()+"'";
+		  
+		  stmt.executeUpdate(SQL);
+		  
+		  return true;
+	  }
+	  
 	  public static Activite getActiviteByID(String id_activite) throws SQLException {
 		  ResultSet rs = null;
 	      String requete = "SELECT * FROM activity WHERE id="+id_activite;
@@ -248,11 +300,13 @@ public final class ActiviteDAO {
 	  
 	  
 	  public static boolean deleteActivite(String id) { 
-		  String SQL = "DELETE FROM activity WHERE id="+id+";"
-				  +"; DELETE FROM participates WHERE activity="+id+";"
-				  +"; DELETE FROM organises WHERE activity="+id+";";
+		  String SQL1 = "DELETE FROM activity WHERE id="+id+";";
+		  String SQL2 = "DELETE FROM participates WHERE activity="+id+";";
+		  String SQL3 = "DELETE FROM organises WHERE activity="+id+";";
 		  try {	  
-	    	  stmt.executeUpdate(SQL);
+	    	  stmt.executeUpdate(SQL1);
+	    	  stmt.executeUpdate(SQL2);
+	    	  stmt.executeUpdate(SQL3);
 	    	  return true;
 			} catch (Exception e) {
 				e.printStackTrace();
