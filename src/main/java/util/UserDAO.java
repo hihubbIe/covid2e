@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import util.SingletonConnection;
+import metier.Activite;
 import metier.User;
 
 public final class UserDAO {
@@ -345,6 +346,40 @@ public final class UserDAO {
 		  		+ " WHERE ((friend1='"+id1+"' and friend2='"+id2+"') or (friend1='"+id2+"' and friend2='"+id1+"'))";
 		  try {	  
 	    	  stmt.executeUpdate(SQL);
+	    	  return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+		  return false;
+	  }
+	  
+	  public static boolean deleteUser(String id) throws SQLException { 
+		  
+		  ActiviteDAO.getInstance();
+		  ArrayList<Activite> listActivite = ActiviteDAO.getAllActiviteByUser(id);
+		  
+		  ArrayList<String> listIdActivite = new ArrayList<String>();
+		  
+		  for (int i = 0; i<listActivite.size(); i++) {
+			  listIdActivite.add(listActivite.get(i).getId());
+		  }
+
+		  String SQL1 = "DELETE FROM user WHERE id="+id+";";
+		  String SQL2 = "DELETE FROM participates WHERE user="+id+";";
+		  String SQL3 = "DELETE FROM organises WHERE user="+id+";";
+		  String SQL4 = "DELETE FROM notification WHERE user="+id+";";
+		  try {	  
+	    	
+	    	  stmt.executeUpdate(SQL2);
+	    	  stmt.executeUpdate(SQL3);
+	    	  stmt.executeUpdate(SQL4);
+	    	  
+	    	  for (int i = 0; i<listIdActivite.size(); i++) {
+				  stmt.execute("DELETE FROM activity WHERE id="+listIdActivite.get(i));
+			  }
+	    	  
+	    	  stmt.executeUpdate(SQL1);
+			  
 	    	  return true;
 			} catch (Exception e) {
 				e.printStackTrace();

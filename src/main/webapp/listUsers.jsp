@@ -100,7 +100,7 @@
 						out.println("<form method='get' action='profil.jsp'><input type='hidden' name='pseudo' value='"+listUsers.get(i).getPseudo()+"' /><button class='btn btn-info btn-sm ml-3' type='submit' >Profil</button></form>");
 						
 						if (session.getAttribute("role").equals("0")){ 
-							out.println("<button class='btn btn-danger btn-sm ml-3' type='button'>BAN</button>");
+							out.println("<form onSubmit=\"return confirm('Etes vous sûr de vouloir le bannir ?');\" method='post' action='DeleteUser' class='ml-4'><input type='hidden' name='id' value='"+UserDAO.getIDbyPseudo(listUsers.get(i).getPseudo())+"' /><button class='btn btn-danger btn-sm' type='submit'> <i class='material-icons'></i>BAN</button></form>");
 						}
 						
 						out.println("</div></div></div></div>");

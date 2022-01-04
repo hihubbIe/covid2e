@@ -36,9 +36,6 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 		 String nom = request.getParameter("name").trim().toLowerCase();
 	     String mdp = Hash.sha256(request.getParameter("password"));
-	     
-	     System.out.println(nom);
-	     
 	     if (nom != null && mdp != null) {
 		     try {
 				UserDAO.getInstance();
