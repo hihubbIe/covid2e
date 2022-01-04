@@ -116,7 +116,7 @@ public final class ActiviteDAO {
 		  String date_debut_str = dateFormat.format(date_debut);  
 		  String date_fin_str = dateFormat.format(date_fin);  
 		  
-		  String SQL = "UPDATE activity SET name='"+acti.getName()+"',address='"+acti.getAddress().getId()+"',start='"
+		  String SQL = "UPDATE activity SET name='"+acti.getName().replaceAll("[<>]","")+"',address='"+acti.getAddress().getId()+"',start='"
 		  +date_debut_str+"',end='"
 		  +date_fin_str+"' WHERE id='"+acti.getId()+"'";
 		  
@@ -186,7 +186,7 @@ public final class ActiviteDAO {
 		  String strDate_debut = dateFormat.format(date_debut); 
 		  String strDate_fin = dateFormat.format(date_fin); 
 		  String SQL = "INSERT INTO ACTIVITY(id,name,address,start,end) "
-	                + "VALUES('"+ActiviteDAO.maxIdActivite()+"','"+activite.getName()+"','"+activite.getAddress().getId()+"','"
+	                + "VALUES('"+ActiviteDAO.maxIdActivite()+"','"+activite.getName().replaceAll("[<>]","")+"','"+activite.getAddress().getId()+"','"
 				  +strDate_debut+"','"+strDate_fin+"');";
 		  
 		  String SQL2 = "INSERT INTO Organises (user,activity) VALUES ('"+id_user+"','"+ActiviteDAO.maxIdActivite()+"');";

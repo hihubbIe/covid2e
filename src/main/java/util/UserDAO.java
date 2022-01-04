@@ -136,7 +136,6 @@ public final class UserDAO {
 			} catch (Exception e) {
 				e.printStackTrace();
 		  }
-	      System.out.println("fck"+listUser+id_activite);
 	      return listUser;   
 	  }
 	  
@@ -222,7 +221,7 @@ public final class UserDAO {
 		  DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
 		  String strDate = dateFormat.format(date);  
 		  String SQL = "INSERT INTO user(id,login,password,name,firstName,birthday,role)"
-	                + "VALUES('"+id+"','"+user.getPseudo()+"','"+mdp+"','"+user.getName()+"','"+user.getFirstName()+"','"+strDate+"','1')";
+	                + "VALUES('"+id+"','"+user.getPseudo().replaceAll("[<>]","")+"','"+mdp+"','"+user.getName().replaceAll("[<>]","")+"','"+user.getFirstName().replaceAll("[<>]","")+"','"+strDate+"','1')";
 		  try {	  
 	    	  stmt.executeUpdate(SQL);
 	    	  return true;
@@ -237,8 +236,8 @@ public final class UserDAO {
 		  DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
 		  String strDate = dateFormat.format(date);  
 		  String SQL = "UPDATE User"
-		  		+ " SET name='"+user.getName()+"',"
-		  				+ "firstName='"+user.getFirstName()+"',"
+		  		+ " SET name='"+user.getName().replaceAll("[<>]","")+"',"
+		  				+ "firstName='"+user.getFirstName().replaceAll("[<>]","")+"',"
 		  						+ "birthday='"+strDate+"',"
 		  							+"photo='"+user.getPhoto()+"'";
 		  

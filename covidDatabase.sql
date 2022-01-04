@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 30 déc. 2021 à 19:44
+-- Généré le :  mar. 04 jan. 2022 à 14:54
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.3.5
 
@@ -21,6 +21,32 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `covid`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `activity`
+--
+
+DROP TABLE IF EXISTS `activity`;
+CREATE TABLE IF NOT EXISTS `activity` (
+  `id` varchar(256) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `address` varchar(256) NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `activity`
+--
+
+INSERT INTO `activity` (`id`, `name`, `address`, `start`, `end`) VALUES
+('2', 'Feg', '1', '2021-01-28 03:26:00', '2022-01-04 03:26:00'),
+('4', 'Fête chez moi', '3', '2022-01-03 01:09:00', '2022-01-10 05:15:00'),
+('5', 'Fête à la centrale nucléaire', '1', '2022-01-18 05:15:00', '2022-01-19 05:15:00'),
+('6', 'Cell games presented by Hetap', '3', '2022-01-05 03:49:00', '2022-01-06 09:49:00');
 
 -- --------------------------------------------------------
 
@@ -47,7 +73,8 @@ CREATE TABLE IF NOT EXISTS `address` (
 
 INSERT INTO `address` (`id`, `name`, `number`, `street`, `zipcode`, `city`, `country`, `coordinates`) VALUES
 ('1', NULL, 59, 'boucle de la milliaire', '57100', 'Thionville', 'France', NULL),
-('2', NULL, 53, 'Boucle de la milliaire', '57100', 'Thionville', 'Afghanistan', NULL);
+('2', NULL, 53, 'Boucle de la milliaire', '57100', 'Thionville', 'Afghanistan', NULL),
+('3', NULL, 6, 'Rue Jacques Callot', '57100', 'Manom', 'Afghanistan', NULL);
 
 -- --------------------------------------------------------
 
@@ -107,10 +134,66 @@ CREATE TABLE IF NOT EXISTS `notification` (
 
 INSERT INTO `notification` (`id`, `user`, `receivedDate`, `content`) VALUES
 ('1', '2\r\n', '2021-12-29', 'daisuke57 vous a retiré de sa liste d amis.'),
+('11', '1', '2022-01-01', 'misterpopo participe à votre évènement : FDFLMDF'),
+('12', '1', '2022-01-02', 'dak participe à votre évènement : Fête chez moi'),
+('13', '1', '2022-01-02', 'misterpopo participe à votre évènement : Fête chez moi'),
+('14', '1', '2022-01-03', 'dak participe à votre évènement : FDFLMDF'),
+('15', '6', '2022-01-03', 'daisuke57 participe à votre évènement : Fête à la centrale nucléaire'),
+('16', '1', '2022-01-04', 'perfect cell participe à votre évènement : Cell games presented by Hetap'),
+('17', '1', '2022-01-04', '[ADD]-8 | perfect cell veut vous ajouter en ami'),
 ('4', '3', '2021-12-29', '[ADD]-1 | daisuke57 veut vous ajouter en ami'),
 ('5', '3', '2021-12-29', '[ADD]-1 | daisuke57 veut vous ajouter en ami'),
 ('6', '2\r\n', '2021-12-29', '[ADD]-1 | daisuke57 veut vous ajouter en ami'),
-('8', '7', '2021-12-30', 'daisuke57 vous a ajouté en ami');
+('9', '3', '2021-12-31', '[ADD]-1 | daisuke57 veut vous ajouter en ami');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `organises`
+--
+
+DROP TABLE IF EXISTS `organises`;
+CREATE TABLE IF NOT EXISTS `organises` (
+  `user` varchar(256) NOT NULL,
+  `activity` varchar(256) NOT NULL,
+  PRIMARY KEY (`user`,`activity`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `organises`
+--
+
+INSERT INTO `organises` (`user`, `activity`) VALUES
+('1', '2'),
+('1', '3'),
+('1', '4'),
+('1', '6'),
+('6', '5');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `participates`
+--
+
+DROP TABLE IF EXISTS `participates`;
+CREATE TABLE IF NOT EXISTS `participates` (
+  `user` varchar(256) NOT NULL,
+  `activity` varchar(256) NOT NULL,
+  PRIMARY KEY (`user`,`activity`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `participates`
+--
+
+INSERT INTO `participates` (`user`, `activity`) VALUES
+('1', '5'),
+('6', '3'),
+('6', '4'),
+('7', '3'),
+('7', '4'),
+('8', '6');
 
 -- --------------------------------------------------------
 
@@ -431,7 +514,8 @@ INSERT INTO `user` (`id`, `login`, `password`, `name`, `firstName`, `birthday`, 
 ('4', 'daisukette', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'Son', 'Goku', '2021-12-22', 1, NULL),
 ('5', 'Lamaillequimaille', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'Lamaille', 'quimaille', '2021-12-26', 1, NULL),
 ('6', 'dak', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'Dao', 'Douloud', '2000-01-04', 1, 'http://images6.fanpop.com/image/photos/34300000/homer-simpson-homer-simpson-34387502-168-200.png'),
-('7', 'misterpopo', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'Mister', 'Popo', '1992-01-04', 1, 'https://cdn.anisearch.fr/images/character/cover/full/20/20608.webp');
+('7', 'misterpopo', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'Mister', 'Popo', '1992-01-04', 1, 'https://cdn.anisearch.fr/images/character/cover/full/20/20608.webp'),
+('8', 'perfect cell', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'Cell', 'Hetap', '2000-01-04', 1, 'https://static1.millenium.org/articles/7/30/86/67/@/658399-vign-cell-article_m-2.jpg');
 
 --
 -- Contraintes pour les tables déchargées
