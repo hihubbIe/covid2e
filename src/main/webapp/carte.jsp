@@ -93,6 +93,15 @@ if (session.getAttribute("login") == null || session.getAttribute("login") == ""
         	   shadowSize: [41, 41]
         	 });
            
+           var yellowIcon = new L.Icon({
+        	   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
+        	   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        	   iconSize: [25, 41],
+        	   iconAnchor: [12, 41],
+        	   popupAnchor: [1, -34],
+        	   shadowSize: [41, 41]
+        	 });
+           
            // Fonction d'initialisation de la carte
            function initMap() {
                // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
@@ -130,7 +139,17 @@ if (session.getAttribute("login") == null || session.getAttribute("login") == ""
 	               		   	
 	               		   	out.println("marker"+i+".bindPopup('"+balise_string+"');");
 	               		   	
-	               		   	out.println("lat = "+lat_coord+"; long="+long_coord+";");
+	               		   	// Si on veut voir un lieu spécifiquement
+	               		   	if (request.getParameter("id") != null && request.getParameter("id")!=""){
+	               		   		// Si c'est ce lieu
+	               		   		if (request.getParameter("id").equals(act.getId())){
+		               		   		out.println("lat = "+lat_coord+"; long="+long_coord+";");
+		               		   		out.println("marker"+i+".setIcon(yellowIcon);");
+	               		   		}
+	               		   	}else{
+	               		   		out.println("lat = "+lat_coord+"; long="+long_coord+";");
+	               		   	}
+	               		 
 	               	   }
                	   }
                

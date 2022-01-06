@@ -53,7 +53,7 @@ public class NeParticipePlus extends HttpServlet {
 		
 		ActiviteDAO.noParticipateActivite(id_activite, id_user);
 		
-		response.sendRedirect("listActivite.jsp?success=1");
+		response.sendRedirect("detailsActivite.jsp?id_activite="+id_activite);
 
 	}
 

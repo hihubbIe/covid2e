@@ -84,7 +84,7 @@ if (session.getAttribute("login") == null || session.getAttribute("login") == ""
 				User organisateur = UserDAO.getUserById(ActiviteDAO.getActiviteIdUser(acti.getId()));
 				String my_id = UserDAO.getIDbyPseudo(session.getAttribute("login").toString());
 				
-				// Si le filtre de participation est activé
+				// Si le filtre ONLYparticipation (pour voir que les activités auxquelles je participe) est activé
 				if (!test_participation || ActiviteDAO.isParticipating(acti.getId(),session.getAttribute("login").toString())){
 					count_participation++;
 					out.println("<div class='card mb-3'>");

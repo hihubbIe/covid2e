@@ -26,9 +26,13 @@
 <%@ include file="header_log.jsp" %>
 <% Activite acti = ActiviteDAO.getActiviteByID(request.getParameter("id_activite"));
 User profil = UserDAO.getUserById(ActiviteDAO.getActiviteIdUser(request.getParameter("id_activite")));
+
 SimpleDateFormat formatter = new SimpleDateFormat("EEEE dd MMMM yyyy à hh:mm");  
+
 String DateDebut = formatter.format(acti.getStart());  
 String DateFin = formatter.format(acti.getEnd());  
+
+String my_id = UserDAO.getIDbyPseudo(session.getAttribute("login").toString());
 %>
 <div class="main-div2">
 	<div class="container-sm css-container-profil">
@@ -90,14 +94,44 @@ String DateFin = formatter.format(acti.getEnd());
                  	%>
                 </div>
 
-      
+        		</form>
                 </div>
                 
+                <%
+                // Si t'es pas l'organisateur
+                	if(!ActiviteDAO.isOrganising(acti.getId(),session.getAttribute("login").toString())){
+                		// Si tu participes pas encore
+                		if(!ActiviteDAO.isParticipating(acti.getId(), session.getAttribute("login").toString())){
+                			out.println("<form class='d-flex justify-content-center' action='Participe' method='post'>");
+							out.println("<input type='hidden' name='id_user' value='"+my_id+"' />"
+						    +"<input type='hidden' name='id_activite' value='"+acti.getId()+"' />"
+							+"<button class='btn btn-success btn-block btn-lg gradient-custom-4 text-body' type='submit'> <i class='material-icons'></i>Participer</button>");
+							out.println("</form>");
+                		}else{// Sinon si tu participes 
+                			out.println("<form class='d-flex justify-content-center' action='NeParticipePlus' method='post'>");
+    						out.println("<input type='hidden' name='id_user' value='"+my_id+"' />"
+    					    +"<input type='hidden' name='id_activite' value='"+acti.getId()+"' />"
+    						+"<button class='btn btn-warning btn-block btn-lg gradient-custom-4 text-body' type='submit'> <i class='material-icons'></i>Ne plus participer</button>");
+    						out.println("</form>");
+                		}
+                		
+                	}else{ // Si t'es l'organisteur
+                		
+                	}
+                %>
+
+                 <form>
+                 <input type='hidden' name='id' value="<% out.print(acti.getId());%>">
                 <div class="d-flex justify-content-center">
+                  <button type="submit" formaction="carte.jsp"  class="btn btn-info btn-block btn-lg gradient-custom-4 text-body">Lieu sur la carte</button>
+                </div>
+                 </form>
+                 
+                <form>
+                 <div class="d-flex justify-content-center">
                   <button type="submit" formaction="listActivite.jsp"  class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body">Retour</button>
                 </div>
-
-              </form>
+                </form>
 		</div>
 	</div>
 </div>
