@@ -43,7 +43,7 @@
 		  <button type="submit" class="btn btn-primary" style="width:10%;margin-left:1em;">
 		    <i class="fas fa-search">Rechercher</i>
 		  </button>
-		    <button formaction="listUsers.jsp" type="submit" class="btn btn-warning" style="width:10%;margin-left:1em;">
+		    <button formaction="friendList.jsp" type="submit" class="btn btn-warning" style="width:10%;margin-left:1em;">
 		    <i class="fas fa-search">Clear</i>
 		  </button>
 		</div>

@@ -35,6 +35,8 @@ if (session.getAttribute("login") == null || session.getAttribute("login") == ""
     <main role="main" class="container mb-3">
       <div class="starter-template">
       
+      <h1>Liste des activités</h1>
+      
       		
 		<form class="mt-3 mb-3 pt-3" action="activite.jsp">
 				

@@ -53,7 +53,7 @@ if (session.getAttribute("login") == null || session.getAttribute("login") == ""
 								<form action="AddLieu" method="post" class="">
 
 									<div class="form-outline mb-4">
-										<label class="form-label">Nom</label> <input type="text"
+										<label class="form-label">Nom (Optionnel)</label> <input type="text"
 											class="form-control form-control-lg" name="nom" />
 									</div>
 

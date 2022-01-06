@@ -65,6 +65,10 @@ h1{
    	background-color:white;
 }
 
+.container{
+	padding-bottom:50px;
+}
+
 .css-container-profil{
 	margin-top:20px;
     color: #1a202c;

@@ -87,9 +87,9 @@ public final class LieuDAO {
 	  }
 	  
 	  public static boolean insertLieu(Lieu lieu) { 
-		  String SQL = "INSERT INTO ADDRESS(id,number,street,zipcode,city,country) "
+		  String SQL = "INSERT INTO ADDRESS(id,number,street,zipcode,city,country,coordinates) "
 	                + "VALUES('"+LieuDAO.maxIdLieu()+"','"+lieu.getNum()+"','"+lieu.getStreet().replaceAll("[<>]","")+"','"
-				  +lieu.getZipcode()+"','"+lieu.getCity().replaceAll("[<>]","")+"','"+lieu.getCountry()+"')";
+				  +lieu.getZipcode()+"','"+lieu.getCity().replaceAll("[<>]","")+"','"+lieu.getCountry()+"','"+lieu.getCoord()+"')";
 		  
 		  try {	  
 	    	  stmt.executeUpdate(SQL);

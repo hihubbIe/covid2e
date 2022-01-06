@@ -84,10 +84,12 @@ public class AddLieu extends HttpServlet {
             scanner.close();
             	
             String score_string = informationString.toString();
+            String coord = informationString.substring(informationString.indexOf("coordinates")+15,informationString.indexOf("coordinates")+34).replaceAll(" ", "");
             
             double score= Double.parseDouble(score_string.substring(score_string.indexOf("score")+8,score_string.indexOf("score")+15));
             
-            if (score >= 0.9) {
+            if (score >= 0.80) {
+            	lieu.setCoord(coord);
         		LieuDAO.insertLieu(lieu);
         		response.sendRedirect("lieu.jsp?success=1");
             }else {

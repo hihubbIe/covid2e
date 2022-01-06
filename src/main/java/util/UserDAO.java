@@ -198,7 +198,6 @@ public final class UserDAO {
 	      		+ "OR  firstName LIKE '%"+name+"%' "
 	      		+ "OR  user.name LIKE '%"+name+"%' "
 	      		+ "OR login LIKE '%"+name+"%');";
-	      System.out.println(requete);
 	      ArrayList<User> listUser = new ArrayList<User>();
 	      try {	  
 	    	  rs = stmt.executeQuery(requete);
