@@ -45,7 +45,7 @@ if (session.getAttribute("login") == null || session.getAttribute("login") == ""
 
     <main role="main" class="container">
       <div class="starter-template">
-        <h1>Carte</h1>
+        <h1>Carte des activités</h1>
         
             <div id="map">
 	    <!-- Ici s'affichera la carte -->
