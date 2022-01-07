@@ -119,9 +119,10 @@ if (session.getAttribute("login") == null || session.getAttribute("login") == ""
                // Toutes les activités :
             	   
             	   ActiviteDAO.getInstance();
-               
+                
                	   ArrayList<Activite> listAct = ActiviteDAO.getAllActivite();
                	   if (listAct != null && listAct.size()!=0){
+               	
 	               	   for (int i=0; i<listAct.size(); i++){
 	               		   	String coord = listAct.get(i).getAddress().getCoord();
 	               		   	Activite act = listAct.get(i);
@@ -135,9 +136,17 @@ if (session.getAttribute("login") == null || session.getAttribute("login") == ""
 	            		   
 	               		   	String balise_string = "<a href=\"detailsActivite.jsp?id_activite="+act.getId()+"\"><h3>"+act.getName()+"</h3></a>";
 	               		   	balise_string += "<div>"+act.getAddress().toString()+"</div>";
-	               			balise_string += "<div> le "+formatter.format(act.getStart())+"</div>";
+	               			balise_string += "<div> le "+formatter.format(act.getStart())+"</div> <hr/>";
 	               		   	
-	               		   	out.println("marker"+i+".bindPopup('"+balise_string+"');");
+	               			for (int k=0; k<i; k++){
+	               				if (listAct.get(k).getAddress().getCoord().equals(listAct.get(i).getAddress().getCoord())){
+	               					out.println("marker"+k+".setZIndexOffset(500);");
+	               					out.println("marker"+k+".bindPopup(marker"+k+".getPopup().getContent() + '"+balise_string+"');");
+	               					break;
+	               				}
+	               			}
+	               			
+	               			out.println("marker"+i+".bindPopup('"+balise_string+"');");
 	               		   	
 	               		   	// Si on veut voir un lieu spécifiquement
 	               		   	if (request.getParameter("id") != null && request.getParameter("id")!=""){
