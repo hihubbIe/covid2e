@@ -48,6 +48,13 @@
 	                	out.println("<div style='color:red;'> Le pseudo existe déjà ! </div>");
 	                }
 				%>	
+				
+				  <%
+	    			String testage = request.getParameter("age");
+	                if (testage != null && testage != ""){
+	                	out.println("<div style='color:red;'> Il faut avoir 18 ans ou plus ! </div>");
+	                }
+				%>	
               
               
                 <div class="form-outline mb-4">

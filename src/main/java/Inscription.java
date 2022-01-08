@@ -60,7 +60,12 @@ public class Inscription extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
-		 
+		
+		Date now = new Date();
+		
+
+		long difference_day = now.getYear() - date1.getYear();
+				 
 		UserDAO.getInstance();
 		int max_id = UserDAO.maxIdUser();
 		User user_insert = new User(nom,prenom,"1");
@@ -71,7 +76,11 @@ public class Inscription extends HttpServlet {
 			 try {
 				if (UserDAO.checkPseudo(pseudo)) { // Si le pseudo existe déjà alors : 
 					 response.sendRedirect("inscription.jsp?existe=1");
-				 }else {
+				 }
+			    else if(difference_day < 18){
+			    	 response.sendRedirect("inscription.jsp?age=1");
+				}
+				 else{
 					 UserDAO.insertUser(max_id, user_insert, mdp);
 					 response.sendRedirect("login.jsp?compte=1");
 				 }
