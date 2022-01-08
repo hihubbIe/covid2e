@@ -387,6 +387,28 @@ public final class UserDAO {
 	  }
 	  
 	  
+	  public static ArrayList<String> getAllFriends(String id_user) throws SQLException {
+		  ResultSet rs = null;
+	      String requete = "SELECT * FROM friend WHERE "
+	    		  +" friend1="+id_user
+	    		  +" OR friend2="+id_user;
+	      ArrayList<String> listUser = new ArrayList<String>();
+	      try {	  
+	    	  rs = stmt.executeQuery(requete);
+			
+	    	  while (rs.next()) {
+	    		  String id_friend = id_user.equals(rs.getString("friend2")) ? rs.getString("friend2") : rs.getString("friend1");
+	    		  listUser.add(id_friend);
+	    	  }
+			
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+	      return listUser;   
+	  }
+	  
+	  
 	  
 		
 	

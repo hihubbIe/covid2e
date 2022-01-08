@@ -108,6 +108,42 @@ public final class ActiviteDAO {
 	      return listActivite;
 	  }
 	  
+	  public static ArrayList<Activite> getAllActiviteByUserParticipate(String id_user) throws SQLException {
+		  
+		  ResultSet rs = null;
+	      String requete = "SELECT * FROM activity,participates WHERE start <= NOW() AND id=activity AND user="
+		  +id_user+" ORDER BY start ASC;";
+	      ArrayList<Activite> listActivite = new ArrayList<Activite>();
+	      LieuDAO.getInstance();
+	      
+	      try {	  
+	    	  rs = stmt.executeQuery(requete);
+			
+	    	  while (rs.next()) {
+	    		String name = rs.getString("name");
+	    		String id = rs.getString("id");
+	    		String id_lieu = rs.getString("address");
+	    		String debut = rs.getString("start");
+	    		String fin = rs.getString("end");
+	    		
+	    		Date debut_date = new SimpleDateFormat("yyyy-mm-dd hh:mm").parse(debut);
+	    		Date fin_date = new SimpleDateFormat("yyyy-mm-dd hh:mm").parse(fin);
+	    		Lieu lieu = LieuDAO.getLieuByID(id_lieu);
+	    		lieu.setId(id_lieu);
+	    		
+	    		Activite act = new Activite (name,lieu,debut_date,fin_date);
+	    		act.setId(id);
+	    		
+	    		listActivite.add(act);
+	    	  }
+			
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+		  }
+	      return listActivite;
+	  }
+	  
 	  public static boolean updateActivite(Activite acti) throws SQLException {
 		  Date date_debut = acti.getStart();
 		  Date date_fin = acti.getEnd();
@@ -124,6 +160,9 @@ public final class ActiviteDAO {
 		  
 		  return true;
 	  }
+	  
+	  
+	  
 	  
 	  public static Activite getActiviteByID(String id_activite) throws SQLException {
 		  ResultSet rs = null;
@@ -313,7 +352,25 @@ public final class ActiviteDAO {
 		  }
 		  return false;
 	  }
-	  
+
+	  public static ArrayList<String> getAllUsersByActivite(String id_activity) throws SQLException {
+          ResultSet rs = null;
+          String requete = "SELECT * FROM user AS u,participates AS p WHERE u.id = p.user AND p.activity = " + id_activity + ";";
+          ArrayList<String> listUser = new ArrayList<>();
+          LieuDAO.getInstance();
+          
+          try {
+              rs = stmt.executeQuery(requete);
+              
+              while (rs.next()) {
+                  String id = rs.getString("id");
+                  listUser.add(id);
+              }
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+          return listUser;
+      }
 	  
 	  
 	}

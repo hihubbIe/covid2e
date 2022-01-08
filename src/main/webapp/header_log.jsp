@@ -40,6 +40,7 @@ util.PaysDAO,util.LieuDAO,metier.Lieu,metier.Activite,util.ActiviteDAO" %>
 		        <a class="nav-link dropdown-item" href="listActivite.jsp?mylist=1">Mes activités <span class="sr-only">(current)</span></a>
 		        <a class="nav-link dropdown-item" href="listActivite.jsp?myparticipation=1">Mes participations <span class="sr-only">(current)</span></a>
 		    	<a class="nav-link dropdown-item" href="carte.jsp?myparticipation=1">Carte des activités <span class="sr-only">(current)</span></a>
+		    	<a class="nav-link dropdown-item" href="DeclareCovid.jsp">Je suis covidé <span class="sr-only">(current)</span></a>
 		    </div>
 	    </div>
       </li>
